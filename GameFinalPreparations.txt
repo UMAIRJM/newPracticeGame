@@ -1,0 +1,261 @@
+we have to do
+Remainder:
+Use of builtin Function like Onawake timeerInterupts.
+Prefabs
+Unpacking the imported assests or charcater goto prefab =>select unpack
+PlayersPrefs In unity
+tags.unity  =>gameObject.tag
+// Activate the GameObject after a delay (e.g., 2 seconds)
+        Invoke("ActivateGameObject", 2f);
+
+Trasitions and parameters (bool and trigger)
+rayCast
+Animation Recording
+slicing of images
+Write steps to create Banner Ad--admob account, google ad plugin, register app, get appid  
+
+
+collider 
+rigid body 
+sphere  collider 
+audio source 
+scripts
+animators....?
+animations
+
+
+mesh collider: 
+if we have defined object for example box or rectangle etc then
+we use box collider. but if we have irrregular shape for example terrain then we 
+will use mesh collider
+
+
+RigidBody isKinematic:
+
+When isKinematic is set to true, the RigidBody will not respond to for
+ces and collisions in the same way as non-kinematic RigidBodies.
+ You have to manually control its position and rotation through scripting. 
+This is useful for objects that you want to move programmatically without 
+being influenced by external forces.
+
+When isKinematic is set to false, the RigidBody responds to forces and collisions
+as expected in a physics simulation. Gravity, applied forces,
+and collisions will affect the object's motion.
+
+useGravity:
+ Determines whether the object is affected by gravity.
+isKinematic: 
+Determines whether the object responds to physics forces
+or is controlled programmatically.
+
+
+getComponent:
+
+public GameObject cude;
+public Rigidbody rd;
+void Start()
+{
+    rd = cude.GetComponent<Rigidbody>();
+    rd.useGravity = true;
+    
+}
+
+Discrete Collision Detection:
+
+Methodology: In discrete collision detection, collision checks 
+are performed at discrete points in time,
+ usually at each frame of the simulation or at fixed intervals.
+
+Continuous Collision Detection:
+
+Methodology: Continuous collision detection involves checking for
+ collisions continuously over a range of time rather than at specific 
+time points. It is used to detect collisions that might be missed by 
+discrete methods due to objects moving too fast between frames.
+
+
+public void OnCollisionEnter(Collision collision)
+{
+    if (collision.gameObject.name.StartsWith("otherCube")) {
+        print("collision is detected");
+	destroy(transform.gameObject)
+    }
+}
+public void OnTriggerEnter(Collider other)
+{
+    if (other.gameObject.name.StartsWith("Ground") || other.gameObject.name.StartsWith("otherCube")) {
+        print("triggered");
+	destroy(other.gameObject);
+    	
+    }
+}
+
+
+
+Note:
+We can apply trigger enter on single object and whether is trigger is
+on in gameOvject with which script is attacjed or other game object 
+it should be on on either game Object and it will work
+
+for 3D gameObject:
+
+transform.Translate(0,0,0);
+transform.position = new vector3(0,0,0);
+transform.rotation = quaterion.Euler(new vector3(0,0,0));
+
+for 2D gameObject:
+
+transform.Translate(0,0,0);
+transform.position = new vector2(0,0);
+transform.rotation = quaterion.Euler(new vector2(0,0));
+transform.rotation = quaterion.Euler(0,0,0);
+
+Sprite Renderer:
+
+In Unity, the SpriteRenderer is a component specifically designed for rendering 2D sprites. 
+It's commonly used in 2D games and applications to display images, 
+characters, backgrounds, and other 2D graphics. 
+Here's an explanation of the key features and usage of the SpriteRenderer 
+
+Spehere collider:
+Mosty  used with cylinderical shapes
+Suitable for GameObjects with round or spherical shapes, such as balls, coins, or other objects where a spherical collision boundary is appropriate.
+Versatility:
+Provides a versatile representation for objects with a rounded or curved form, allowing 
+for more natural interactions in certain scenarios.
+
+keycode:
+
+if (Input.GetKeyDown(KeyCode.K)) { 
+	do something    
+}
+if (Input.GetKeyUp(KeyCode.K)) { 
+	do something    
+}
+
+
+AudioSource:
+
+ public AudioSource re;
+ re = cude.GetComponent<AudioSource>();
+if (Input.GetKey(KeyCode.V)) {
+    re.Play();
+
+}
+
+
+3D Animation:
+
+charcter inspector => rig =>Animation Type => humaniod =>Apply
+after doing this
+take charcter in to your scene
+add animator component to character if not attached already
+then go to create option create animator controller 
+now drop this animator in animator controller option
+now we can add as many animation to controller as we want and create different 
+parameters to handle our animations
+
+Now in order to handle animation in scrits create animatorobject in script
+public animator an;;
+an = getComponenet<Animator>();
+an.SetBool("isWalking", false);
+downlaod animations from any platform like mixamo.com
+and use these in animator controller
+
+
+gameObject.isActive("false");
+
+
+pausing and resume the game
+==========================
+
+using UnityEngine;
+
+public class GameController : MonoBehaviour
+{
+    private bool isPaused = false;
+    public GameObject pauseMenu;
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused)
+                ResumeGame();
+            else
+                PauseGame();
+        }
+    }
+
+    void PauseGame()
+    {
+        isPaused = true;
+        Time.timeScale = 0f; // Pause the game
+        pauseMenu.SetActive(true); // Show the pause menu
+    }
+
+    void ResumeGame()
+    {
+        isPaused = false;
+        Time.timeScale = 1f; // Resume the game
+        pauseMenu.SetActive(false); // Hide the pause menu
+    }
+}
+
+difference between prefab and gameObject:
+============================================
+
+if we edit ine prefab and override it and apply it willmakes changes to all the prefabs
+in game scene that is advantage of prefab.
+
+
+
+   On MouseDown()--> through this method you can directly click on the gameobject
+    OnTouchStart()--> replacement of OnMouseDown for touch input
+    Difference between OnMouseDown() and GetMouseDown()
+    OnMouseDown() is only workable with colliders on the gameobject
+
+
+rayCasting
+=========
+public GameObject fpsCam;
+Public float range = 500;
+
+public void shoot(){
+	Raycast hit;
+	if(physics.Raycast(fpsCam.transform.position),fpsCam.transform.forward,out hit,range){
+		if(hit.transform.tag == "enemy"){
+			enemyMovement enemy = hit.transform.getComponent<enemyMovement>();
+			enemy.die();
+		}
+	}
+}
+
+
+
+Initilizing Array in C#
+=============================
+ array = new int[] { 1, 2, 3, 4, 5 };
+
+
+prefab :
+=========
+
+make  change in one prefab and ot can be used or reverted to all other in the scene
+
+override => revert all
+
+
+unity bool and isTrigger parametrs
+===============
+animator.SetBool("IsWalking", true);
+
+trigger:
+===========
+Trigger parameters are similar to bool parameters but are designed for one-shot events or transitions.
+Once a trigger is set to true, it remains true until the next frame, after which it automatically resets
+ to false. This makes triggers useful for events that should happen only once.
+
+animator.SetTrigger("AttackTrigger");
+
+transform.Translate(Vector2.up * 250 * Time.fixedDeltaTime);
